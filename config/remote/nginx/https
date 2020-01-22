@@ -1,0 +1,23 @@
+server 
+{
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    root /home/jrootham/http/docroot;
+    index index.html;
+
+    server_name jrootham.ca;
+
+    ssl_certificate     /etc/letsencrypt/live/jrootham.ca/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/jrootham.ca/privkey.pem;
+
+    location /servers/hello/ 
+    {
+        proxy_pass http://127.0.0.1:4000;
+    }
+
+    location / 
+    {
+    	try_files $uri $uri/ =404;
+    }
+}
