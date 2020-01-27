@@ -1,0 +1,15 @@
+server 
+{
+    listen 80;
+    listen [::]:80;
+
+    root /home/jrootham/http/docroot;
+    index index.html;
+
+    server_name jrootham.ca www.jrootham.ca;
+
+    location / 
+    {
+    	try_files $uri $uri/ =404;
+    }
+}
