@@ -1,4 +1,4 @@
-(defproject hello "0.1.0-SNAPSHOT"
+(defproject hello "0.1.0"
 	:description "Hello, world"
 	:url "http://example.com/FIXME"
 	:dependencies 

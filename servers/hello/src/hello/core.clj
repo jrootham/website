@@ -22,6 +22,7 @@
 
 (defroutes replying
 	(GET "/" [name] (reply name))
+	(GET "/favicon.ico" [] {:status 404})
 )
 
 (defn wrapper []
