@@ -3,6 +3,7 @@
 	(:require [ring.adapter.jetty :as r])
 	(:require [ring.middleware.params :as p])
 	(:require [compojure.core :as c])
+	(:require [compojure.route :as cr])
 	(:require [clojure.string :as str])
 	(:require [ring-debug-logging.core :as d])
 	(:require [hiccup.core :as h])
@@ -57,9 +58,38 @@
 	(hp/html5 (head) (prompt-body name address error))
 )
 
+(defn validate [name address]
+)
+
+(defn confirm [token]
+)
+
+(defn request []
+)
+
+(defn check []
+)
+
+(defn login []
+)
+
+(defn opt []
+)
+
+(defn delete []
+)
+
 (c/defroutes replying
-	(c/GET "/" [] (prompt "" "" ""))
+	(c/GET "/servers/nopassword/register/" [] (prompt "" "" ""))
+	(c/POST "/servers/nopassword/validate" [name address] (validate name address))
+	(c/POST "servers/nopassword/confirm" [token] (confirm token))
+	(c/POST "servers/nopassword/request" [] (request))
+	(c/POST "servers/nopassword/check" [] (check))
+	(c/POST "servers/nopassword/login" [] (login))
+	(c/POST "servers/nopassword/opt" [] (opt))
+	(c/POST "servers/nopassword/delete" [] (delete))
 	(c/GET "/favicon.ico" [] {:status 404})
+	(cr/not-found {:status 404 :body "Not Found"})
 )
 
 (defn wrapper []
