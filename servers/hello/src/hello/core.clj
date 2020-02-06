@@ -3,6 +3,7 @@
 	(:require [ring.adapter.jetty :refer [run-jetty]])
 	(:require [ring.middleware.params :refer [wrap-params]])
 	(:require [compojure.core :refer [defroutes GET]])
+	(:require [compojure.route :refer [not-found]])
 	(:require [clojure.string :as str])
 	(:require [ring-debug-logging.core :refer [wrap-with-logger]])
 	(:require [hiccup.page :refer [html5]])
@@ -17,12 +18,14 @@
 )
 
 (defn reply [name]
+	(println "In reply")
 	(html5 (head) (body name))
 )
 
 (defroutes replying
-	(GET "/" [name] (reply name))
+	(GET "/servers/hello/" [name] (reply name))
 	(GET "/favicon.ico" [] {:status 404})
+	(not-found {:status 404 :body "Not Found"})
 )
 
 (defn wrapper []
