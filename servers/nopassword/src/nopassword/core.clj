@@ -12,50 +12,17 @@
 	(:require [nopassword.stuff :as s])
 )
 
-
-(defn hello []
-;	(cl/get "https://jrootham.ca/server/hello" {:query-params "Foo"})
-	(cl/get "https://jrootham.ca/hello")
-)
-
-; curl --request POST \
-;   --url https://api.sendgrid.com/v3/mail/send \
-;   --header "Authorization: Bearer $SENDGRID_API_KEY" \
-;   --header 'Content-Type: application/json' \
-;   --data '{"personalizations": [{"to": [{"email": "jrootham@gmail.com"}]}],
-; 		  	"from": {"email": "test@example.com"},
-; 		  	"subject": "Sending with SendGrid is Fun",
-; 		  	"content": [{"type": "text/plain", "value": "and easy to do anywhere, even with cURL"}]
-; 		  }'
-
-
 (defn mail-config [from to subject body]
 	{
-		:authorization (str "Bearer " s/mail-key)
+		:oauth-token s/mail-key
 		:content-type :applicaton/json
 		:form-params
 		{
-			:personalizations
-				[
-					{
-						:to 
-						[
-							{
-								:email to
-							}
-						]
-					}
-				]
-			:from 
-				{
-					:email from
-				}
+			:personalizations[{:to [{:email to}]}]
+			:from {:email from}
 			:subject subject
-			:content body
+			:content [{:type "text/html" :value body}]
 		}
-
-		:debug true
-		:debug-body true
 	}
 )
 
