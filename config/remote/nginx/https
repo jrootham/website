@@ -16,6 +16,17 @@ server
         proxy_pass http://127.0.0.1:4000;
     }
 
+    location /servers/nopassword/ 
+    {
+        proxy_pass http://127.0.0.1:4001;
+    }
+
+    location ~ \.php$ 
+    {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    }
+
     location / 
     {
     	try_files $uri $uri/ =404;
